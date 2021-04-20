@@ -1,0 +1,22 @@
+---
+  name: Shell check
+
+  on:
+    push:
+      branches:
+        - main
+    pull_request:
+
+  jobs:
+    shellcheck:
+      name: Shell check
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+        env:
+          SHELLCHECK_OPTS: -s bash

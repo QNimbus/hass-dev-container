@@ -1,0 +1,24 @@
+---
+  name: Publish to Docker registry
+  on:
+    push:
+      branches:
+        - main
+    schedule:
+    - cron: '0 2 * * 0' # Weekly on Sundays at 02:00
+  jobs:
+    update:
+      name: Publish to Docker registry
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name:  Publish to Docker registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: qnimbus/hass-dev-container
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          cache: ${{ github.event_name == 'schedule' }}
+          no_push: ${{ github.event_name == 'schedule' }}
+          tags: "latest"
