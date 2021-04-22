@@ -135,11 +135,15 @@ MSYS_NO_PATHCONV=1 docker run --rm -it \
 
 - Status badge to README
 - Basic configuration example for Home Assistant
+- Added vscode `tasks.json` file
+- Added vscode `settings.json` file
+- Added `build.sh` script for testing Docker build
 
 #### Changed <!-- omit in toc -->
 
 - Fixed typos in example scripts of README
 - Updated formatting of README
+- Makefile default goal to 'build' instead of 'all'
 
 ### [v0.0.1] - 2021-04-21 <!-- omit in toc -->
 

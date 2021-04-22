@@ -6,7 +6,10 @@ IMAGENAME=hass-dev-container
 REPO=qnimbus
 IMAGEFULLNAME=${REPO}/${IMAGENAME}
 
-.PHONY: help build push all
+.DEFAULT_GOAL := build
+
+.PHONY:
+	help build push all
 
 help:
 	@echo "Makefile arguments:"
@@ -17,8 +20,6 @@ help:
 	@echo "build"
 	@echo "push"
 	@echo "all"
-
-.DEFAULT_GOAL := all
 
 build:
 	@docker build \
