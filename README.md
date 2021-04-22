@@ -1,11 +1,14 @@
 # HASS Docker container for development & testing <!-- omit in toc -->
 
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/QNimbus/hass-dev-container/Publish%20to%20Docker%20registry/main?style=for-the-badge)
+
 - [About](#about)
 - [Usage](#usage)
-- [Environment Variables](#environment-variables)
-- [About Lovelace plugins](#about-lovelace-plugins)
-- [Container script](#container-script)
-- [VSCode 'devcontainer.json' example](#vscode-devcontainerjson-example)
+  - [Environment Variables](#environment-variables)
+  - [About Lovelace plugins](#about-lovelace-plugins)
+  - [Container script](#container-script)
+  - [Basic configuration](#basic-configuration)
+  - [VSCode 'devcontainer.json' example](#vscode-devcontainerjson-example)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
 
@@ -23,44 +26,77 @@ docker run --rm -it \
     -v $(pwd):/config/www/workspace \
     -e LOVELACE_LOCAL_FILES="" \
     -e LOVELACE_PLUGINS="" \
-    besquared/hass-dev-container
+    qnimbus/hass-dev-container
 ```
 
-## Environment Variables
+### Environment Variables
 
-| Name | Description | Default |
-|---|---|---|
-| `HASS_USERNAME` | The username of the default user | `hass` |
-| `HASS_PASSWORD` | The password of the default user | `hass` |
-| `LOVELACE_PLUGINS` | List of lovelace plugins to download from GitHub | '' |
-| `LOVELACE_LOCAL_FILES` | List of filenames in `/config/www/workspace` to add as Lovelace resources | '' |
+| Name                   | Description                                                               | Default |
+| ---------------------- | ------------------------------------------------------------------------- | ------- |
+| `HASS_USERNAME`        | The username of the default user                                          | `hass`  |
+| `HASS_PASSWORD`        | The password of the default user                                          | `hass`  |
+| `LOVELACE_PLUGINS`     | List of lovelace plugins to download from GitHub                          | ''      |
+| `LOVELACE_LOCAL_FILES` | List of filenames in `/config/www/workspace` to add as Lovelace resources | ''      |
 
-## About Lovelace plugins
+### About Lovelace plugins
 
 `LOVELACE_PLUGINS` should be a space separated list of author/repo pairs, e.g. `"thomasloven/lovelace-card-mod  kalkih/mini-media-player"`
 `LOVELACE_LOCAL_FILES` is for the currently worked on plugins and should be a list of file names which are mounted in `/config/www/workspace`.
 
-## Container script
+### Container script
 
 Set up and launch Home Assistant
 
 ```bash
-$ container
+$ container.sh
 ```
 
 Perform download and setup parts but do not launch Home Assistant
 
 ```bash
-$ container setup
+$ container.sh setup
 ```
 
 Launch Home Assistant with `hass -c /config -v`
 
 ```bash
-$ container launch
+$ container.sh launch
 ```
 
-## VSCode 'devcontainer.json' example
+### Basic configuration
+
+Basic `configuration.yaml`
+
+```yaml
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+```
+
+### VSCode 'devcontainer.json' example
+
+Without existing `configuration.yaml`:
+
+```json
+{
+  "image": "qnimbus/hass-dev-container",
+  "postCreateCommand": "sudo -E /usr/bin/container.sh setup && npm add",
+  "forwardPorts": [8123],
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/config/www/workspace,type=bind"
+  ]
+}
+```
+
+With existing `configuration.yaml`:
 
 ```json
 {
@@ -94,6 +130,16 @@ MSYS_NO_PATHCONV=1 docker run --rm -it \
 ## Changelog
 
 ### [Unreleased] <!-- omit in toc -->
+
+#### Added <!-- omit in toc -->
+
+- Status badge to README
+- Basic configuration example for Home Assistant
+
+#### Changed <!-- omit in toc -->
+
+- Fixed typos in example scripts of README
+- Updated formatting of README
 
 ### [v0.0.1] - 2021-04-21 <!-- omit in toc -->
 
