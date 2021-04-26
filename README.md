@@ -131,6 +131,8 @@ MSYS_NO_PATHCONV=1 docker run --rm -it \
 
 ### [Unreleased] <!-- omit in toc -->
 
+### [v0.0.2] - 2021-04-26 <!-- omit in toc -->
+
 #### Added <!-- omit in toc -->
 
 - Status badge to README
@@ -150,5 +152,6 @@ MSYS_NO_PATHCONV=1 docker run --rm -it \
 #### Added <!-- omit in toc -->
 - Initial version of `hass-dev-container` repository
 
-[Unreleased]: https://github.com/qnimbus/hass-dev-container/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/qnimbus/hass-dev-container/compare/v0.0.2...HEAD
+[v0.0.2]: https://github.com/qnimbus/hass-dev-container/releases/tag/v0.0.2
 [v0.0.1]: https://github.com/qnimbus/hass-dev-container/releases/tag/v0.0.1
