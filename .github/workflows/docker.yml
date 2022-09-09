@@ -12,7 +12,7 @@
       runs-on: ubuntu-latest
       steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
       - name:  Publish to Docker registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
