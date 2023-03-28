@@ -14,7 +14,7 @@
       - name: Checkout
         uses: actions/checkout@master
       - name:  Publish to Docker registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: qnimbus/hass-dev-container
           username: ${{ secrets.DOCKER_USERNAME }}
